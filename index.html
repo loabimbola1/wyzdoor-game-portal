@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyzdoor Portal - Free HTML5 Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .game-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .game-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .maze-tile {
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .ball {
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .tapper-shape {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tapper-shape:hover {
+            transform: scale(1.1);
+        }
+        .ad-banner {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .social-bar-ad {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+    </style>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4316477506557253"
+     crossorigin="anonymous">
+	</script>
+</head>
+<body class="bg-gray-100">
+    
+
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold"><i class="fas fa-gamepad mr-2"></i>Wyzdoor Portal</h1>
+            <div class="flex space-x-4">
+                <button onclick="showPage('home')" class="hover:text-blue-200"><i class="fas fa-home mr-1"></i>Home</button>
+                <button onclick="showPage('about')" class="hover:text-blue-200"><i class="fas fa-info-circle mr-1"></i>About</button>
+                <button onclick="showPage('terms')" class="hover:text-blue-200"><i class="fas fa-file-contract mr-1"></i>Terms</button>
+                <button onclick="showPage('privacy')" class="hover:text-blue-200"><i class="fas fa-shield-alt mr-1"></i>Privacy</button>
+            </div>
+        </div>
+    </nav>
+
+   
+
+
+
+    <!-- Home Page -->
+    <div id="home-page" class="container mx-auto p-4">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Wyzdoor Portal</h2>
+            <p class="text-xl text-gray-600">Choose from our collection of exciting HTML5 games!</p>
+        </div>
+
+        
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- ColorMaze Game Card -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <i class="fas fa-puzzle-piece text-6xl text-purple-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">ColorMaze</h3>
+                    <p class="text-gray-600 mb-4">Paint the entire maze by sliding the ball! Strategic puzzle game with increasing difficulty.</p>
+                    <button onclick="showGame('colormaze')" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-play mr-2"></i>Play Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Square Tapper -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <i class="fas fa-square text-6xl text-blue-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Square Tapper</h3>
+                    <p class="text-gray-600 mb-4">Tap blue squares and avoid red ones! Fast-paced action game.</p>
+                    <button onclick="showGame('square-tapper')" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-play mr-2"></i>Play Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Circle Tapper -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <i class="fas fa-circle text-6xl text-green-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Circle Tapper</h3>
+                    <p class="text-gray-600 mb-4">Tap green circles for points! Quick reflexes required.</p>
+                    <button onclick="showGame('circle-tapper')" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-play mr-2"></i>Play Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Triangle Tapper -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <i class="fas fa-play text-6xl text-yellow-500 mb-4" style="transform: rotate(90deg);"></i>
+                    <h3 class="text-2xl font-bold mb-2">Triangle Tapper</h3>
+                    <p class="text-gray-600 mb-4">Tap yellow triangles and score big! Avoid the red ones.</p>
+                    <button onclick="showGame('triangle-tapper')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-play mr-2"></i>Play Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hex Tapper -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <i class="fas fa-hexagon text-6xl text-indigo-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Hex Tapper</h3>
+                    <p class="text-gray-600 mb-4">Tap purple hexagons for maximum points! Ultimate challenge.</p>
+                    <button onclick="showGame('hex-tapper')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-play mr-2"></i>Play Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scoreboards -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6">
+                <div class="text-center">
+                    <i class="fas fa-trophy text-6xl text-gold-500 mb-4" style="color: #ffd700;"></i>
+                    <h3 class="text-2xl font-bold mb-2">Scoreboards</h3>
+                    <p class="text-gray-600 mb-4">View your high scores and achievements for all games.</p>
+                    <button onclick="showPage('scoreboards')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-chart-line mr-2"></i>View Scores
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ColorMaze Game -->
+    <div id="colormaze-game" class="hidden">
+        <div class="game-container p-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold text-purple-600"><i class="fas fa-puzzle-piece mr-2"></i>ColorMaze</h2>
+                        <button onclick="showPage('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </button>
+                    </div>
+
+                    <!-- Game Instructions -->
+                    <div class="bg-purple-50 border-l-4 border-purple-400 p-4 mb-6">
+                        <h3 class="font-bold text-lg mb-2"><i class="fas fa-info-circle mr-2"></i>How to Play:</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li><strong>Objective:</strong> Paint all gray tiles blue by moving the red ball</li>
+                            <li><strong>Movement:</strong> Ball slides until it hits a wall or painted tile</li>
+                            <li><strong>Controls:</strong> Use arrow keys (desktop) or swipe (mobile)</li>
+                            <li><strong>Win:</strong> Complete the level when all tiles are painted</li>
+                        </ul>
+                    </div>
+
+                    <!-- Difficulty Selection -->
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold mb-3">Select Difficulty:</h3>
+                        <div class="flex space-x-4">
+                            <button onclick="startColorMaze('easy')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-star mr-1"></i>Easy (4x4)
+                            </button>
+                            <button onclick="startColorMaze('medium')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-star mr-1"></i><i class="fas fa-star mr-1"></i>Medium (6x6)
+                            </button>
+                            <button onclick="startColorMaze('hard')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-star mr-1"></i><i class="fas fa-star mr-1"></i><i class="fas fa-star mr-1"></i>Hard (8x8)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Game Stats -->
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="text-lg font-semibold">Level: <span id="maze-level">1</span></div>
+                        <div class="text-lg font-semibold">Score: <span id="maze-score">0</span></div>
+                        <div class="text-lg font-semibold">Moves: <span id="maze-moves">0</span></div>
+                    </div>
+
+                    <!-- Game Area -->
+                    <div class="flex justify-center mb-6">
+                        <div id="maze-container" class="grid gap-1 bg-gray-800 p-4 rounded-lg"></div>
+                    </div>
+
+                    <!-- Game Controls -->
+                    <div class="text-center">
+                        <button onclick="resetMaze()" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold mr-4">
+                            <i class="fas fa-redo mr-2"></i>Reset Level
+                        </button>
+                        <button onclick="showPage('scoreboards')" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold">
+                            <i class="fas fa-trophy mr-2"></i>View Scores
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tapper Games Template -->
+    <div id="tapper-game" class="hidden">
+        <div class="game-container p-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold" id="tapper-title">Tapper Game</h2>
+                        <button onclick="showPage('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </button>
+                    </div>
+
+                    <!-- Game Instructions -->
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                        <h3 class="font-bold text-lg mb-2"><i class="fas fa-info-circle mr-2"></i>How to Play:</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700">
+                            <li><strong>Objective:</strong> Tap the correct colored shapes to score points</li>
+                            <li><strong>Avoid:</strong> Red shapes will end your game immediately</li>
+                            <li><strong>Warning:</strong> Missing 3 good shapes will end the game</li>
+                            <li><strong>Speed:</strong> Game gets faster as your score increases</li>
+                        </ul>
+                    </div>
+
+                    <!-- Difficulty Selection -->
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold mb-3">Select Difficulty:</h3>
+                        <div class="flex space-x-4">
+                            <button onclick="startTapperGame('easy')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-star mr-1"></i>Easy
+                            </button>
+                            <button onclick="startTapperGame('medium')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-star mr-1"></i><i class="fas fa-star mr-1"></i>Medium
+                            </button>
+                            <button onclick="startTapperGame('hard')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-star mr-1"></i><i class="fas fa-star mr-1"></i><i class="fas fa-star mr-1"></i>Hard
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Game Stats -->
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="text-lg font-semibold">Score: <span id="tapper-score">0</span></div>
+                        <div class="text-lg font-semibold">Missed: <span id="tapper-missed">0</span>/3</div>
+                        <div class="text-lg font-semibold">Level: <span id="tapper-level">1</span></div>
+                    </div>
+
+                    <!-- Game Area -->
+                    <div class="relative bg-gray-800 rounded-lg mb-6" style="height: 400px;" id="tapper-area">
+                        <div class="absolute inset-0 flex items-center justify-center text-white text-xl" id="game-message">
+                            Select difficulty to start playing!
+                        </div>
+                    </div>
+
+                    <!-- Game Controls -->
+                    <div class="text-center">
+                        <button onclick="pauseTapperGame()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg font-semibold mr-4">
+                            <i class="fas fa-pause mr-2"></i>Pause
+                        </button>
+                        <button onclick="showPage('scoreboards')" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold">
+                            <i class="fas fa-trophy mr-2"></i>View Scores
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scoreboards Page -->
+    <div id="scoreboards-page" class="hidden container mx-auto p-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-yellow-600"><i class="fas fa-trophy mr-2"></i>Scoreboards</h2>
+                    <button onclick="showPage('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </button>
+                </div>
+
+                
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- ColorMaze Scores -->
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-purple-600 mb-4"><i class="fas fa-puzzle-piece mr-2"></i>ColorMaze</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between"><span>Easy Best:</span><span id="colormaze-easy-score">0</span></div>
+                            <div class="flex justify-between"><span>Medium Best:</span><span id="colormaze-medium-score">0</span></div>
+                            <div class="flex justify-between"><span>Hard Best:</span><span id="colormaze-hard-score">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Square Tapper Scores -->
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-blue-600 mb-4"><i class="fas fa-square mr-2"></i>Square Tapper</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between"><span>Easy Best:</span><span id="square-easy-score">0</span></div>
+                            <div class="flex justify-between"><span>Medium Best:</span><span id="square-medium-score">0</span></div>
+                            <div class="flex justify-between"><span>Hard Best:</span><span id="square-hard-score">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Circle Tapper Scores -->
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-green-600 mb-4"><i class="fas fa-circle mr-2"></i>Circle Tapper</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between"><span>Easy Best:</span><span id="circle-easy-score">0</span></div>
+                            <div class="flex justify-between"><span>Medium Best:</span><span id="circle-medium-score">0</span></div>
+                            <div class="flex justify-between"><span>Hard Best:</span><span id="circle-hard-score">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Triangle Tapper Scores -->
+                    <div class="bg-yellow-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-yellow-600 mb-4"><i class="fas fa-play mr-2" style="transform: rotate(90deg);"></i>Triangle Tapper</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between"><span>Easy Best:</span><span id="triangle-easy-score">0</span></div>
+                            <div class="flex justify-between"><span>Medium Best:</span><span id="triangle-medium-score">0</span></div>
+                            <div class="flex justify-between"><span>Hard Best:</span><span id="triangle-hard-score">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Hex Tapper Scores -->
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-indigo-600 mb-4"><i class="fas fa-hexagon mr-2"></i>Hex Tapper</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between"><span>Easy Best:</span><span id="hex-easy-score">0</span></div>
+                            <div class="flex justify-between"><span>Medium Best:</span><span id="hex-medium-score">0</span></div>
+                            <div class="flex justify-between"><span>Hard Best:</span><span id="hex-hard-score">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Overall Stats -->
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-gray-600 mb-4"><i class="fas fa-chart-line mr-2"></i>Overall Stats</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between"><span>Total Games:</span><span id="total-games">0</span></div>
+                            <div class="flex justify-between"><span>Best Score:</span><span id="best-overall-score">0</span></div>
+                            <div class="flex justify-between"><span>Favorite Game:</span><span id="favorite-game">None</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-6">
+                    <button onclick="clearAllScores()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-semibold">
+                        <i class="fas fa-trash mr-2"></i>Clear All Scores
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about-page" class="hidden container mx-auto p-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-blue-600"><i class="fas fa-info-circle mr-2"></i>About Wyzdoor Portal</h2>
+                    <button onclick="showPage('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </button>
+                </div>
+
+                <div class="space-y-6 text-gray-700">
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-3">Welcome to Wyzdoor Portal!</h3>
+                        <p class="text-lg leading-relaxed">
+                            Wyzdoor Portal is your ultimate destination for free HTML5 games that work perfectly on all devices. 
+                            Whether you're on a smartphone, tablet, or desktop computer, our games are designed to provide 
+                            an exceptional gaming experience without any downloads required.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-3">Our Games</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-600 mb-2"><i class="fas fa-puzzle-piece mr-2"></i>ColorMaze</h4>
+                                <p>A strategic puzzle game where you control a ball to paint every tile in the maze. Features multiple difficulty levels and increasingly complex puzzles.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-600 mb-2"><i class="fas fa-mouse-pointer mr-2"></i>Tapper Games</h4>
+                                <p>Fast-paced action games including Square, Circle, Triangle, and Hex Tappers. Test your reflexes and achieve high scores!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-3">Features</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg">
+                            <li><strong>Mobile-Friendly:</strong> All games work perfectly on touch devices</li>
+                            <li><strong>No Downloads:</strong> Play instantly in your browser</li>
+                            <li><strong>Progressive Difficulty:</strong> Easy to learn, challenging to master</li>
+                            <li><strong>Score Tracking:</strong> Keep track of your best performances</li>
+                            <li><strong>Multiple Games:</strong> Variety of gameplay styles to suit all preferences</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-3">Technology</h3>
+                        <p class="text-lg leading-relaxed">
+                            Our games are built using modern HTML5, CSS3, and JavaScript technologies, ensuring compatibility 
+                            across all modern browsers and devices. We use responsive design principles to provide the best 
+                            possible experience regardless of screen size.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-3">Get Started</h3>
+                        <p class="text-lg leading-relaxed">
+                            Ready to start gaming? Simply select any game from our home page and begin playing immediately. 
+                            No registration required, no ads interrupting your gameplay - just pure gaming fun!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Page -->
+    <div id="terms-page" class="hidden container mx-auto p-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-blue-600"><i class="fas fa-file-contract mr-2"></i>Terms of Service</h2>
+                    <button onclick="showPage('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </button>
+                </div>
+
+                <div class="space-y-6 text-gray-700">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">1. Acceptance of Terms</h3>
+                        <p>By accessing and using Wyzdoor Portal, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">2. Use License</h3>
+                        <p>Permission is granted to temporarily download one copy of the materials on Wyzdoor Portal for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li>modify or copy the materials</li>
+                            <li>use the materials for any commercial purpose or for any public display</li>
+                            <li>attempt to reverse engineer any software contained on the website</li>
+                            <li>remove any copyright or other proprietary notations from the materials</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">3. Disclaimer</h3>
+                        <p>The materials on Wyzdoor Portal are provided on an 'as is' basis. Wyzdoor Portal makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">4. Limitations</h3>
+                        <p>In no event shall Wyzdoor Portal or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Wyzdoor Portal, even if Wyzdoor Portal or an authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">5. Accuracy of Materials</h3>
+                        <p>The materials appearing on Wyzdoor Portal could include technical, typographical, or photographic errors. Wyzdoor Portal does not warrant that any of the materials on its website are accurate, complete, or current.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">6. Links</h3>
+                        <p>Wyzdoor Portal has not reviewed all of the sites linked to our website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Wyzdoor Portal of the site.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">7. Modifications</h3>
+                        <p>Wyzdoor Portal may revise these terms of service for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">8. Governing Law</h3>
+                        <p>These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that state or location.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Page -->
+    <div id="privacy-page" class="hidden container mx-auto p-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-blue-600"><i class="fas fa-shield-alt mr-2"></i>Privacy Policy</h2>
+                    <button onclick="showPage('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </button>
+                </div>
+
+                <div class="space-y-6 text-gray-700">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Information We Collect</h3>
+                        <p>Wyzdoor Portal collects minimal information to provide you with the best gaming experience:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li><strong>Game Scores:</strong> Stored locally on your device to track your progress</li>
+                            <li><strong>Game Preferences:</strong> Settings and difficulty levels you choose</li>
+                            <li><strong>Usage Statistics:</strong> Anonymous data about which games are most popular</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">How We Use Information</h3>
+                        <p>The information we collect is used to:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li>Provide and maintain our gaming services</li>
+                            <li>Improve and personalize your gaming experience</li>
+                            <li>Analyze usage patterns to enhance our games</li>
+                            <li>Communicate with you about updates and new features</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Local Storage</h3>
+                        <p>We use your browser's local storage to save your game progress and scores. This information never leaves your device and is not transmitted to our servers. You can clear this data at any time through your browser settings or by using the "Clear All Scores" button in our scoreboards.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Third-Party Services</h3>
+                        <p>Our website may contain advertisements provided by third-party services. These services may use cookies and other tracking technologies. We recommend reviewing their privacy policies:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li>Adsterra - Advertising services</li>
+                            <li>jsDelivr CDN - Content delivery for libraries and assets</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Cookies</h3>
+                        <p>We may use cookies to enhance your experience. You can choose to disable cookies through your browser settings, though some features of our games may not function properly without them.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Data Security</h3>
+                        <p>We implement appropriate security measures to protect your information. However, no method of transmission over the Internet or electronic storage is 100% secure, so we cannot guarantee absolute security.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Children's Privacy</h3>
+                        <p>Our games are suitable for all ages. We do not knowingly collect personal information from children under 13. If you are a parent and believe your child has provided us with personal information, please contact us.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Changes to This Policy</h3>
+                        <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page and updating the "Last Updated" date.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Contact Information</h3>
+                        <p>If you have any questions about this privacy policy or our data practices, please contact us through the information provided on our website.</p>
+                    </div>
+
+                    <div class="text-sm text-gray-500 border-t pt-4">
+                        <p><strong>Last Updated:</strong> May 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global game state
+        let currentPage = 'home';
+        let currentGame = null;
+        let gameState = {
+            colormaze: {
+                level: 1,
+                score: 0,
+                moves: 0,
+                difficulty: 'easy',
+                grid: [],
+                ballPos: {x: 0, y: 0},
+                gridSize: 4
+            },
+            tapper: {
+                score: 0,
+                missed: 0,
+                level: 1,
+                gameRunning: false,
+                shapes: [],
+                difficulty: 'easy',
+                currentGame: ''
+            }
+        };
+
+        // Load scores from localStorage
+        function loadScores() {
+            const saved = localStorage.getItem('Wyzdoor-scores');
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            return {
+                colormaze: {easy: 0, medium: 0, hard: 0},
+                square: {easy: 0, medium: 0, hard: 0},
+                circle: {easy: 0, medium: 0, hard: 0},
+                triangle: {easy: 0, medium: 0, hard: 0},
+                hex: {easy: 0, medium: 0, hard: 0},
+                totalGames: 0
+            };
+        }
+
+        // Save scores to localStorage
+        function saveScores(scores) {
+            localStorage.setItem('Wyzdoor-scores', JSON.stringify(scores));
+        }
+
+        // Update score display
+        function updateScoreDisplay() {
+            const scores = loadScores();
+            
+            // ColorMaze scores
+            document.getElementById('colormaze-easy-score').textContent = scores.colormaze.easy;
+            document.getElementById('colormaze-medium-score').textContent = scores.colormaze.medium;
+            document.getElementById('colormaze-hard-score').textContent = scores.colormaze.hard;
+            
+            // Tapper game scores
+            ['square', 'circle', 'triangle', 'hex'].forEach(game => {
+                document.getElementById(`${game}-easy-score`).textContent = scores[game].easy;
+                document.getElementById(`${game}-medium-score`).textContent = scores[game].medium;
+                document.getElementById(`${game}-hard-score`).textContent = scores[game].hard;
+            });
+            
+            // Overall stats
+            document.getElementById('total-games').textContent = scores.totalGames;
+            
+            let bestScore = 0;
+            let bestGame = 'None';
+            Object.keys(scores).forEach(game => {
+                if (typeof scores[game] === 'object') {
+                    Object.keys(scores[game]).forEach(difficulty => {
+                        if (scores[game][difficulty] > bestScore) {
+                            bestScore = scores[game][difficulty];
+                            bestGame = game.charAt(0).toUpperCase() + game.slice(1);
+                        }
+                    });
+                }
+            });
+            
+            document.getElementById('best-overall-score').textContent = bestScore;
+            document.getElementById('favorite-game').textContent = bestGame;
+        }
+
+        // Show specific page
+        function showPage(page) {
+            // Hide all pages and games
+            document.querySelectorAll('[id$="-page"], [id$="-game"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Show requested page
+            document.getElementById(page + '-page').classList.remove('hidden');
+            currentPage = page;
+            
+            if (page === 'scoreboards') {
+                updateScoreDisplay();
+            }
+        }
+
+        // Show specific game
+        function showGame(game) {
+            document.querySelectorAll('[id$="-page"], [id$="-game"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            if (game === 'colormaze') {
+                document.getElementById('colormaze-game').classList.remove('hidden');
+                currentGame = 'colormaze';
+            } else {
+                document.getElementById('tapper-game').classList.remove('hidden');
+                currentGame = 'tapper';
+                gameState.tapper.currentGame = game;
+                
+                // Update tapper game title and styling
+                const titles = {
+                    'square-tapper': 'Square Tapper',
+                    'circle-tapper': 'Circle Tapper', 
+                    'triangle-tapper': 'Triangle Tapper',
+                    'hex-tapper': 'Hex Tapper'
+                };
+                document.getElementById('tapper-title').textContent = titles[game];
+            }
+        }
+
+        // ColorMaze Game Functions
+        function startColorMaze(difficulty) {
+            gameState.colormaze.difficulty = difficulty;
+            gameState.colormaze.level = 1;
+            gameState.colormaze.score = 0;
+            gameState.colormaze.moves = 0;
+            
+            const sizes = {easy: 4, medium: 6, hard: 8};
+            gameState.colormaze.gridSize = sizes[difficulty];
+            
+            generateMaze();
+            updateMazeDisplay();
+        }
+
+        function generateMaze() {
+            const size = gameState.colormaze.gridSize;
+            gameState.colormaze.grid = [];
+            
+            for (let y = 0; y < size; y++) {
+                gameState.colormaze.grid[y] = [];
+                for (let x = 0; x < size; x++) {
+                    gameState.colormaze.grid[y][x] = {
+                        painted: false,
+                        wall: false
+                    };
+                }
+            }
+            
+            // Add some walls for complexity
+            const wallCount = Math.floor(size * size * 0.15);
+            for (let i = 0; i < wallCount; i++) {
+                const x = Math.floor(Math.random() * size);
+                const y = Math.floor(Math.random() * size);
+                if (x !== 0 || y !== 0) { // Don't put wall on starting position
+                    gameState.colormaze.grid[y][x].wall = true;
+                }
+            }
+            
+            // Set ball starting position
+            gameState.colormaze.ballPos = {x: 0, y: 0};
+            gameState.colormaze.grid[0][0].painted = true;
+        }
+
+        function updateMazeDisplay() {
+            const container = document.getElementById('maze-container');
+            const size = gameState.colormaze.gridSize;
+            
+            container.style.gridTemplateColumns = `repeat(${size}, 40px)`;
+            container.innerHTML = '';
+            
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'maze-tile';
+                    tile.style.width = '40px';
+                    tile.style.height = '40px';
+                    
+                    const cell = gameState.colormaze.grid[y][x];
+                    
+                    if (cell.wall) {
+                        tile.style.backgroundColor = '#333';
+                    } else if (cell.painted) {
+                        tile.style.backgroundColor = '#4ade80';
+                    } else {
+                        tile.style.backgroundColor = '#e5e7eb';
+                    }
+                    
+                    // Add ball
+                    if (gameState.colormaze.ballPos.x === x && gameState.colormaze.ballPos.y === y) {
+                        const ball = document.createElement('div');
+                        ball.className = 'ball';
+                        tile.appendChild(ball);
+                    }
+                    
+                    container.appendChild(tile);
+                }
+            }
+            
+            // Update stats
+            document.getElementById('maze-level').textContent = gameState.colormaze.level;
+            document.getElementById('maze-score').textContent = gameState.colormaze.score;
+            document.getElementById('maze-moves').textContent = gameState.colormaze.moves;
+        }
+
+        function moveBall(direction) {
+            const pos = gameState.colormaze.ballPos;
+            const size = gameState.colormaze.gridSize;
+            let newX = pos.x;
+            let newY = pos.y;
+            
+            // Calculate movement direction
+            const directions = {
+                up: {x: 0, y: -1},
+                down: {x: 0, y: 1},
+                left: {x: -1, y: 0},
+                right: {x: 1, y: 0}
+            };
+            
+            const dir = directions[direction];
+            
+            // Move until hitting a wall or painted tile
+            while (true) {
+                const nextX = newX + dir.x;
+                const nextY = newY + dir.y;
+                
+                // Check boundaries
+                if (nextX < 0 || nextX >= size || nextY < 0 || nextY >= size) {
+                    break;
+                }
+                
+                // Check for walls
+                if (gameState.colormaze.grid[nextY][nextX].wall) {
+                    break;
+                }
+                
+                // Move to next position
+                newX = nextX;
+                newY = nextY;
+                
+                // Paint the tile
+                gameState.colormaze.grid[newY][newX].painted = true;
+                
+                // If this tile was already painted, stop here
+                if (gameState.colormaze.grid[newY][newX].painted && (newX !== pos.x || newY !== pos.y)) {
+                    // This is a bit tricky - we need to check if it was painted before this move
+                    // For simplicity, we'll continue until hitting a boundary or wall
+                }
+            }
+            
+            // Update ball position
+            gameState.colormaze.ballPos.x = newX;
+            gameState.colormaze.ballPos.y = newY;
+            gameState.colormaze.moves++;
+            
+            // Check win condition
+            checkMazeWin();
+            updateMazeDisplay();
+        }
+
+        function checkMazeWin() {
+            const size = gameState.colormaze.gridSize;
+            let unpaintedTiles = 0;
+            
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    if (!gameState.colormaze.grid[y][x].painted && !gameState.colormaze.grid[y][x].wall) {
+                        unpaintedTiles++;
+                    }
+                }
+            }
+            
+            if (unpaintedTiles === 0) {
+                // Level completed!
+                const bonus = Math.max(0, 100 - gameState.colormaze.moves * 2);
+                gameState.colormaze.score += 50 + bonus;
+                gameState.colormaze.level++;
+                
+                // Save high score
+                const scores = loadScores();
+                const difficulty = gameState.colormaze.difficulty;
+                if (gameState.colormaze.score > scores.colormaze[difficulty]) {
+                    scores.colormaze[difficulty] = gameState.colormaze.score;
+                    scores.totalGames++;
+                    saveScores(scores);
+                }
+                
+                alert(`Level ${gameState.colormaze.level - 1} completed! Score: ${gameState.colormaze.score}`);
+                
+                // Generate next level
+                generateMaze();
+                updateMazeDisplay();
+            }
+        }
+
+        function resetMaze() {
+            generateMaze();
+            gameState.colormaze.moves = 0;
+            updateMazeDisplay();
+        }
+
+        // Tapper Game Functions
+        function startTapperGame(difficulty) {
+            gameState.tapper.difficulty = difficulty;
+            gameState.tapper.score = 0;
+            gameState.tapper.missed = 0;
+            gameState.tapper.level = 1;
+            gameState.tapper.gameRunning = true;
+            gameState.tapper.shapes = [];
+            
+            const area = document.getElementById('tapper-area');
+            area.innerHTML = '';
+            
+            updateTapperDisplay();
+            spawnShape();
+            
+            // Start game loop
+            gameLoop();
+        }
+
+        function spawnShape() {
+            if (!gameState.tapper.gameRunning) return;
+            
+            const area = document.getElementById('tapper-area');
+            const shape = document.createElement('div');
+            
+            const currentGameType = gameState.tapper.currentGame;
+            const isGoodShape = Math.random() < 0.7; // 70% chance of good shape
+            
+            // Set shape properties based on game type
+            const shapeConfigs = {
+                'square-tapper': {
+                    good: {class: 'fas fa-square', color: '#3b82f6', points: 10},
+                    bad: {class: 'fas fa-square', color: '#ef4444', points: -1}
+                },
+                'circle-tapper': {
+                    good: {class: 'fas fa-circle', color: '#10b981', points: 10},
+                    bad: {class: 'fas fa-circle', color: '#ef4444', points: -1}
+                },
+                'triangle-tapper': {
+                    good: {class: 'fas fa-play', color: '#f59e0b', points: 10},
+                    bad: {class: 'fas fa-play', color: '#ef4444', points: -1}
+                },
+                'hex-tapper': {
+                    good: {class: 'fas fa-hexagon', color: '#8b5cf6', points: 10},
+                    bad: {class: 'fas fa-hexagon', color: '#ef4444', points: -1}
+                }
+            };
+            
+            const config = shapeConfigs[currentGameType];
+            const shapeType = isGoodShape ? config.good : config.bad;
+            
+            shape.className = `tapper-shape ${shapeType.class}`;
+            shape.style.color = shapeType.color;
+            shape.style.fontSize = '30px';
+            shape.style.left = Math.random() * (area.offsetWidth - 50) + 'px';
+            shape.style.top = Math.random() * (area.offsetHeight - 50) + 'px';
+            
+            // Add click handler
+            shape.onclick = () => {
+                if (shapeType.points > 0) {
+                    gameState.tapper.score += shapeType.points;
+                } else {
+                    // Hit bad shape - game over
+                    endTapperGame();
+                    return;
+                }
+                shape.remove();
+                updateTapperDisplay();
+            };
+            
+            // Auto-remove after timeout
+            setTimeout(() => {
+                if (shape.parentNode) {
+                    shape.remove();
+                    if (shapeType.points > 0) {
+                        gameState.tapper.missed++;
+                        if (gameState.tapper.missed >= 3) {
+                            endTapperGame();
+                            return;
+                        }
+                    }
+                    updateTapperDisplay();
+                }
+            }, getDifficultyTimeout());
+            
+            area.appendChild(shape);
+        }
+
+        function getDifficultyTimeout() {
+            const base = {easy: 3000, medium: 2000, hard: 1000};
+            const speedup = Math.floor(gameState.tapper.score / 50) * 100;
+            return Math.max(500, base[gameState.tapper.difficulty] - speedup);
+        }
+
+        function gameLoop() {
+            if (!gameState.tapper.gameRunning) return;
+            
+            spawnShape();
+            
+            // Schedule next spawn
+            setTimeout(() => {
+                gameLoop();
+            }, getDifficultyTimeout() / 2);
+        }
+
+        function updateTapperDisplay() {
+            document.getElementById('tapper-score').textContent = gameState.tapper.score;
+            document.getElementById('tapper-missed').textContent = gameState.tapper.missed;
+            document.getElementById('tapper-level').textContent = Math.floor(gameState.tapper.score / 100) + 1;
+        }
+
+        function endTapperGame() {
+            gameState.tapper.gameRunning = false;
+            
+            // Clear all shapes
+            document.getElementById('tapper-area').innerHTML = `
+                <div class="absolute inset-0 flex items-center justify-center text-white text-xl">
+                    Game Over! Final Score: ${gameState.tapper.score}
+                </div>
+            `;
+            
+            // Save high score
+            const scores = loadScores();
+            const gameType = gameState.tapper.currentGame.replace('-tapper', '');
+            const difficulty = gameState.tapper.difficulty;
+            
+            if (gameState.tapper.score > scores[gameType][difficulty]) {
+                scores[gameType][difficulty] = gameState.tapper.score;
+                scores.totalGames++;
+                saveScores(scores);
+            }
+        }
+
+        function pauseTapperGame() {
+            gameState.tapper.gameRunning = !gameState.tapper.gameRunning;
+            if (gameState.tapper.gameRunning) {
+                gameLoop();
+            }
+        }
+
+        function clearAllScores() {
+            if (confirm('Are you sure you want to clear all scores? This cannot be undone.')) {
+                localStorage.removeItem('Wyzdoor-scores');
+                updateScoreDisplay();
+                alert('All scores have been cleared!');
+            }
+        }
+
+        // Keyboard controls for ColorMaze
+        document.addEventListener('keydown', (e) => {
+            if (currentGame === 'colormaze') {
+                switch(e.key) {
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        moveBall('up');
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        moveBall('down');
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        moveBall('left');
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        moveBall('right');
+                        break;
+                }
+            }
+        });
+
+        // Touch controls for ColorMaze
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            if (currentGame === 'colormaze') {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (currentGame === 'colormaze') {
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+                
+                const minSwipeDistance = 30;
+                
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (Math.abs(deltaX) > minSwipeDistance) {
+                        moveBall(deltaX > 0 ? 'right' : 'left');
+                    }
+                } else {
+                    if (Math.abs(deltaY) > minSwipeDistance) {
+                        moveBall(deltaY > 0 ? 'down' : 'up');
+                    }
+                }
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+            updateScoreDisplay();
+        });
+    </script>
+</body>
+</html>
